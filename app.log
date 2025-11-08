@@ -1,0 +1,339 @@
+2025-11-09 00:03:17,099 INFO Pipeline appended: {'op': 'remove_duplicates', 'subset': ['Factory', 'Job Role', 'Equality Score', 'Equality class'], 'keep': 'first'}
+2025-11-09 00:03:32,503 INFO Applying step 1: remove_duplicates {'subset': ['Factory', 'Job Role', 'Equality Score', 'Equality class'], 'keep': 'first'}
+2025-11-09 00:05:02,285 INFO Pipeline appended: {'op': 'filter_rows', 'condition': 'Equality Score >=1'}
+2025-11-09 00:05:08,966 INFO Applying step 1: remove_duplicates {'subset': ['Factory', 'Job Role', 'Equality Score', 'Equality class'], 'keep': 'first'}
+2025-11-09 00:05:08,968 INFO Applying step 2: filter_rows {'condition': 'Equality Score >=1'}
+2025-11-09 00:05:08,971 ERROR Error applying operation 'filter_rows': Invalid filter condition: invalid syntax (<unknown>, line 1)
+Traceback (most recent call last):
+  File "C:\Users\BAPS\Excel_Tool\app.py", line 70, in op_filter_rows
+    return df.query(condition)
+           ~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4828, in query
+    res = self.eval(expr, **kwargs)
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4954, in eval
+    return _eval(expr, inplace=inplace, **kwargs)
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\eval.py", line 339, in eval
+    parsed_expr = Expr(expr, engine=engine, parser=parser, env=env)
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 809, in __init__
+    self.terms = self.parse()
+                 ~~~~~~~~~~^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 828, in parse
+    return self._visitor.visit(self.expr)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 409, in visit
+    raise e
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 405, in visit
+    node = ast.fix_missing_locations(ast.parse(clean))
+                                     ~~~~~~~~~^^^^^^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\ast.py", line 50, in parse
+    return compile(source, filename, mode, flags,
+                   _feature_version=feature_version, optimize=optimize)
+  File "<unknown>", line 1
+    Equality Score >=1 
+             ^^^^^
+SyntaxError: invalid syntax
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\BAPS\Excel_Tool\app.py", line 244, in apply_pipeline_to_df
+    current = handler(current, params)
+  File "C:\Users\BAPS\Excel_Tool\app.py", line 72, in op_filter_rows
+    raise ValueError(f"Invalid filter condition: {e}")
+ValueError: Invalid filter condition: invalid syntax (<unknown>, line 1)
+2025-11-09 00:05:39,381 INFO Pipeline appended: {'op': 'filter_rows', 'condition': 'EqualityScore >=1'}
+2025-11-09 00:07:11,422 INFO Pipeline appended: {'op': 'filter_rows', 'condition': 'EqualityScore >=1'}
+2025-11-09 00:07:15,401 INFO Applying step 1: filter_rows {'condition': 'EqualityScore >=1'}
+2025-11-09 00:07:15,403 ERROR Error applying operation 'filter_rows': Invalid filter condition: name 'EqualityScore' is not defined
+Traceback (most recent call last):
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\scope.py", line 231, in resolve
+    return self.resolvers[key]
+           ~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\collections\__init__.py", line 1019, in __getitem__
+    return self.__missing__(key)            # support subclasses that define __missing__
+           ~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\collections\__init__.py", line 1011, in __missing__
+    raise KeyError(key)
+KeyError: 'EqualityScore'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\scope.py", line 242, in resolve
+    return self.temps[key]
+           ~~~~~~~~~~^^^^^
+KeyError: 'EqualityScore'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\BAPS\Excel_Tool\app.py", line 70, in op_filter_rows
+    return df.query(condition)
+           ~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4828, in query
+    res = self.eval(expr, **kwargs)
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4954, in eval
+    return _eval(expr, inplace=inplace, **kwargs)
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\eval.py", line 339, in eval
+    parsed_expr = Expr(expr, engine=engine, parser=parser, env=env)
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 809, in __init__
+    self.terms = self.parse()
+                 ~~~~~~~~~~^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 828, in parse
+    return self._visitor.visit(self.expr)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 413, in visit
+    return visitor(node, **kwargs)
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 419, in visit_Module
+    return self.visit(expr, **kwargs)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 413, in visit
+    return visitor(node, **kwargs)
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 422, in visit_Expr
+    return self.visit(node.value, **kwargs)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 413, in visit
+    return visitor(node, **kwargs)
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 719, in visit_Compare
+    return self.visit(binop)
+           ~~~~~~~~~~^^^^^^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 413, in visit
+    return visitor(node, **kwargs)
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 535, in visit_BinOp
+    op, op_class, left, right = self._maybe_transform_eq_ne(node)
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 453, in _maybe_transform_eq_ne
+    left = self.visit(node.left, side="left")
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 413, in visit
+    return visitor(node, **kwargs)
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 545, in visit_Name
+    return self.term_type(node.id, self.env, **kwargs)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\ops.py", line 91, in __init__
+    self._value = self._resolve_name()
+                  ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\ops.py", line 115, in _resolve_name
+    res = self.env.resolve(local_name, is_local=is_local)
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\scope.py", line 244, in resolve
+    raise UndefinedVariableError(key, is_local) from err
+pandas.errors.UndefinedVariableError: name 'EqualityScore' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\BAPS\Excel_Tool\app.py", line 244, in apply_pipeline_to_df
+    current = handler(current, params)
+  File "C:\Users\BAPS\Excel_Tool\app.py", line 72, in op_filter_rows
+    raise ValueError(f"Invalid filter condition: {e}")
+ValueError: Invalid filter condition: name 'EqualityScore' is not defined
+2025-11-09 00:07:15,414 ERROR Preview error for sheet Sheet1: Invalid filter condition: name 'EqualityScore' is not defined
+Traceback (most recent call last):
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\scope.py", line 231, in resolve
+    return self.resolvers[key]
+           ~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\collections\__init__.py", line 1019, in __getitem__
+    return self.__missing__(key)            # support subclasses that define __missing__
+           ~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\collections\__init__.py", line 1011, in __missing__
+    raise KeyError(key)
+KeyError: 'EqualityScore'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\scope.py", line 242, in resolve
+    return self.temps[key]
+           ~~~~~~~~~~^^^^^
+KeyError: 'EqualityScore'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\BAPS\Excel_Tool\app.py", line 70, in op_filter_rows
+    return df.query(condition)
+           ~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4828, in query
+    res = self.eval(expr, **kwargs)
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 4954, in eval
+    return _eval(expr, inplace=inplace, **kwargs)
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\eval.py", line 339, in eval
+    parsed_expr = Expr(expr, engine=engine, parser=parser, env=env)
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 809, in __init__
+    self.terms = self.parse()
+                 ~~~~~~~~~~^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 828, in parse
+    return self._visitor.visit(self.expr)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 413, in visit
+    return visitor(node, **kwargs)
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 419, in visit_Module
+    return self.visit(expr, **kwargs)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 413, in visit
+    return visitor(node, **kwargs)
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 422, in visit_Expr
+    return self.visit(node.value, **kwargs)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 413, in visit
+    return visitor(node, **kwargs)
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 719, in visit_Compare
+    return self.visit(binop)
+           ~~~~~~~~~~^^^^^^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 413, in visit
+    return visitor(node, **kwargs)
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 535, in visit_BinOp
+    op, op_class, left, right = self._maybe_transform_eq_ne(node)
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 453, in _maybe_transform_eq_ne
+    left = self.visit(node.left, side="left")
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 413, in visit
+    return visitor(node, **kwargs)
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\expr.py", line 545, in visit_Name
+    return self.term_type(node.id, self.env, **kwargs)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\ops.py", line 91, in __init__
+    self._value = self._resolve_name()
+                  ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\ops.py", line 115, in _resolve_name
+    res = self.env.resolve(local_name, is_local=is_local)
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\computation\scope.py", line 244, in resolve
+    raise UndefinedVariableError(key, is_local) from err
+pandas.errors.UndefinedVariableError: name 'EqualityScore' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\BAPS\Excel_Tool\app.py", line 506, in <module>
+    previews[name], _ = apply_pipeline_to_df(df, pipeline)
+                        ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\BAPS\Excel_Tool\app.py", line 244, in apply_pipeline_to_df
+    current = handler(current, params)
+  File "C:\Users\BAPS\Excel_Tool\app.py", line 72, in op_filter_rows
+    raise ValueError(f"Invalid filter condition: {e}")
+ValueError: Invalid filter condition: name 'EqualityScore' is not defined
+2025-11-09 00:08:02,974 INFO Pipeline appended: {'op': 'aggregate', 'by': ['Equality Score'], 'agg': {'Equality Score': 'mean'}}
+2025-11-09 00:08:12,144 INFO Pipeline appended: {'op': 'aggregate', 'by': ['Equality Score'], 'agg': {'Equality Score': 'mean'}}
+2025-11-09 00:08:15,149 INFO Applying step 1: aggregate {'by': ['Equality Score'], 'agg': {'Equality Score': 'mean'}}
+2025-11-09 00:08:15,156 ERROR Error applying operation 'aggregate': Aggregation failed: cannot insert Equality Score, already exists
+Traceback (most recent call last):
+  File "C:\Users\BAPS\Excel_Tool\app.py", line 187, in op_aggregate
+    return df.groupby(by).agg(agg).reset_index()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 6479, in reset_index
+    new_obj.insert(
+    ~~~~~~~~~~~~~~^
+        0,
+        ^^
+    ...<2 lines>...
+        allow_duplicates=allow_duplicates,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 5165, in insert
+    raise ValueError(f"cannot insert {column}, already exists")
+ValueError: cannot insert Equality Score, already exists
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\BAPS\Excel_Tool\app.py", line 244, in apply_pipeline_to_df
+    current = handler(current, params)
+  File "C:\Users\BAPS\Excel_Tool\app.py", line 189, in op_aggregate
+    raise ValueError(f"Aggregation failed: {e}")
+ValueError: Aggregation failed: cannot insert Equality Score, already exists
+2025-11-09 00:08:15,159 ERROR Preview error for sheet Sheet1: Aggregation failed: cannot insert Equality Score, already exists
+Traceback (most recent call last):
+  File "C:\Users\BAPS\Excel_Tool\app.py", line 187, in op_aggregate
+    return df.groupby(by).agg(agg).reset_index()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 6479, in reset_index
+    new_obj.insert(
+    ~~~~~~~~~~~~~~^
+        0,
+        ^^
+    ...<2 lines>...
+        allow_duplicates=allow_duplicates,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 5165, in insert
+    raise ValueError(f"cannot insert {column}, already exists")
+ValueError: cannot insert Equality Score, already exists
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\BAPS\Excel_Tool\app.py", line 506, in <module>
+    previews[name], _ = apply_pipeline_to_df(df, pipeline)
+                        ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\BAPS\Excel_Tool\app.py", line 244, in apply_pipeline_to_df
+    current = handler(current, params)
+  File "C:\Users\BAPS\Excel_Tool\app.py", line 189, in op_aggregate
+    raise ValueError(f"Aggregation failed: {e}")
+ValueError: Aggregation failed: cannot insert Equality Score, already exists
+2025-11-09 00:08:24,348 INFO Applying step 1: aggregate {'by': ['Equality Score'], 'agg': {'Equality Score': 'mean'}}
+2025-11-09 00:08:24,351 ERROR Error applying operation 'aggregate': Aggregation failed: cannot insert Equality Score, already exists
+Traceback (most recent call last):
+  File "C:\Users\BAPS\Excel_Tool\app.py", line 187, in op_aggregate
+    return df.groupby(by).agg(agg).reset_index()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 6479, in reset_index
+    new_obj.insert(
+    ~~~~~~~~~~~~~~^
+        0,
+        ^^
+    ...<2 lines>...
+        allow_duplicates=allow_duplicates,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 5165, in insert
+    raise ValueError(f"cannot insert {column}, already exists")
+ValueError: cannot insert Equality Score, already exists
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\BAPS\Excel_Tool\app.py", line 244, in apply_pipeline_to_df
+    current = handler(current, params)
+  File "C:\Users\BAPS\Excel_Tool\app.py", line 189, in op_aggregate
+    raise ValueError(f"Aggregation failed: {e}")
+ValueError: Aggregation failed: cannot insert Equality Score, already exists
+2025-11-09 00:08:24,354 ERROR Error transforming sheet 'Sheet1': Aggregation failed: cannot insert Equality Score, already exists
+Traceback (most recent call last):
+  File "C:\Users\BAPS\Excel_Tool\app.py", line 187, in op_aggregate
+    return df.groupby(by).agg(agg).reset_index()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 6479, in reset_index
+    new_obj.insert(
+    ~~~~~~~~~~~~~~^
+        0,
+        ^^
+    ...<2 lines>...
+        allow_duplicates=allow_duplicates,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\BAPS\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\frame.py", line 5165, in insert
+    raise ValueError(f"cannot insert {column}, already exists")
+ValueError: cannot insert Equality Score, already exists
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\BAPS\Excel_Tool\app.py", line 540, in <module>
+    transformed_df, logs = apply_pipeline_to_df(df, pipeline)
+                           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\BAPS\Excel_Tool\app.py", line 244, in apply_pipeline_to_df
+    current = handler(current, params)
+  File "C:\Users\BAPS\Excel_Tool\app.py", line 189, in op_aggregate
+    raise ValueError(f"Aggregation failed: {e}")
+ValueError: Aggregation failed: cannot insert Equality Score, already exists
+2025-11-09 00:08:44,907 INFO Pipeline appended: {'op': 'aggregate', 'by': ['Equality Score'], 'agg': {'Equality class': 'mean'}}
+2025-11-09 00:08:50,500 INFO Pipeline appended: {'op': 'aggregate', 'by': ['Equality Score'], 'agg': {'Equality class': 'mean'}}
+2025-11-09 00:08:53,198 INFO Applying step 1: aggregate {'by': ['Equality Score'], 'agg': {'Equality class': 'mean'}}
+2025-11-09 00:08:56,445 INFO Applying step 1: aggregate {'by': ['Equality Score'], 'agg': {'Equality class': 'mean'}}
+2025-11-09 00:08:56,448 INFO Transformed sheet 'Sheet1' successfully.
+2025-11-09 00:13:24,990 INFO Pipeline appended: {'op': 'convert_date', 'column': 'Unnamed: 1', 'fmt_out': '%m-%Y-%d'}
+2025-11-09 00:13:31,877 INFO Applying step 1: convert_date {'column': 'Unnamed: 1', 'fmt_out': '%m-%Y-%d'}
+2025-11-09 00:14:04,110 INFO Saved template: templates\Date.json
