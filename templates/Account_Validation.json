@@ -1,0 +1,17 @@
+[
+  {
+    "op": "normalize_text",
+    "column": "Account_Number",
+    "mode": "strip"
+  },
+  {
+    "op": "validate_pattern",
+    "column": "Account_Number",
+    "pattern": "^\\d{10,12}$",
+    "new_column": "Valid_Account"
+  },
+  {
+    "op": "filter_rows",
+    "condition": "Valid_Account == True"
+  }
+]

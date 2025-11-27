@@ -1,0 +1,19 @@
+[
+  {
+    "op": "math",
+    "new_column": "Amount_Numeric",
+    "expr": "pd.to_numeric(Amount, errors='coerce')"
+  },
+  {
+    "op": "conditional",
+    "condition": "Amount_Numeric > 10000",
+    "true_val": "HIGH VALUE",
+    "false_val": "NORMAL",
+    "new_column": "Risk_Flag"
+  },
+  {
+    "op": "sort_data",
+    "by": ["Amount_Numeric"],
+    "ascending": false
+  }
+]

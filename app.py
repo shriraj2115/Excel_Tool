@@ -210,6 +210,57 @@ def op_conditional(df: pd.DataFrame, params: Dict[str, Any]) -> pd.DataFrame:
     df.loc[mask, new_col] = true_val
     return df
 
+def op_sort_data(df: pd.DataFrame, params: Dict[str, Any]) -> pd.DataFrame:
+    """
+    Sort DataFrame by specified columns.
+    params:
+      - by: list[str] or str (column names)
+      - ascending: bool or list[bool]
+    """
+    by = params.get("by", [])
+    ascending = params.get("ascending", True)
+    if isinstance(by, str):
+        by = [by]
+    missing = [c for c in by if c not in df.columns]
+    if missing:
+        raise KeyError(f"Sort columns not found: {missing}")
+    return df.sort_values(by=by, ascending=ascending).reset_index(drop=True)
+
+def op_validate_pattern(df: pd.DataFrame, params: Dict[str, Any]) -> pd.DataFrame:
+    """
+    Add validation column checking if values match a pattern.
+    params:
+      - column: str
+      - pattern: str (regex pattern)
+      - new_column: str (validation result column)
+    """
+    import re
+    col = params["column"]
+    pattern = params["pattern"]
+    new_col = params["new_column"]
+    if col not in df.columns:
+        raise KeyError(f"Column '{col}' not found for validation.")
+    df = df.copy()
+    df[new_col] = df[col].astype(str).str.match(pattern, na=False)
+    return df
+
+def op_remove_blank_rows(df: pd.DataFrame, params: Dict[str, Any]) -> pd.DataFrame:
+    """
+    Remove rows that are completely blank or have blank values in specified columns.
+    params:
+      - columns: list[str] or None (if None, removes completely empty rows)
+      - how: 'any' or 'all' (any blank column or all blank columns)
+    """
+    columns = params.get("columns", None)
+    how = params.get("how", "any")
+    if columns:
+        missing = [c for c in columns if c not in df.columns]
+        if missing:
+            raise KeyError(f"Columns not found: {missing}")
+        return df.dropna(subset=columns, how=how)
+    else:
+        return df.dropna(how="all")
+
 # Map op names to handler functions
 OP_HANDLERS = {
     "remove_duplicates": op_remove_duplicates,
@@ -221,6 +272,9 @@ OP_HANDLERS = {
     "math": op_math,
     "aggregate": op_aggregate,
     "conditional": op_conditional,
+    "sort_data": op_sort_data,
+    "validate_pattern": op_validate_pattern,
+    "remove_blank_rows": op_remove_blank_rows,
 }
 
 def apply_pipeline_to_df(df: pd.DataFrame, pipeline: List[Dict[str, Any]]) -> Tuple[pd.DataFrame, List[str]]:
@@ -331,14 +385,17 @@ op_choice = st.selectbox(
     [
         "Select...",
         "Remove duplicates",
+        "Remove blank rows",
         "Filter rows",
+        "Sort data",
         "Replace values",
         "Merge columns",
         "Convert date formats",
         "Normalize text",
         "Math operation",
         "Aggregate",
-        "Conditional calculation"
+        "Conditional calculation",
+        "Validate patterns"
     ],
     index=0
 )
@@ -420,6 +477,29 @@ elif op_choice == "Conditional calculation":
     new_col = st.text_input("New column name")
     if st.button("Add Conditional"):
         add_operation_to_pipeline({"op": "conditional", "condition": cond, "true_val": true_v, "false_val": false_v, "new_column": new_col})
+
+# Sort data UI
+elif op_choice == "Sort data":
+    sort_cols = st.multiselect("Columns to sort by", df_original.columns)
+    ascending = st.checkbox("Ascending order", value=True)
+    if st.button("Add Sort"):
+        add_operation_to_pipeline({"op": "sort_data", "by": sort_cols, "ascending": ascending})
+
+# Remove blank rows UI
+elif op_choice == "Remove blank rows":
+    blank_cols = st.multiselect("Check these columns for blanks (leave empty to check all)", df_original.columns)
+    how = st.selectbox("Remove if", ["any", "all"], help="any: remove if ANY selected column is blank, all: remove if ALL selected columns are blank")
+    if st.button("Add Remove Blanks"):
+        add_operation_to_pipeline({"op": "remove_blank_rows", "columns": blank_cols if blank_cols else None, "how": how})
+
+# Validate patterns UI
+elif op_choice == "Validate patterns":
+    val_col = st.selectbox("Column to validate", df_original.columns)
+    pattern = st.text_input("Regex pattern (e.g., '^\\d{10}$' for 10-digit numbers)")
+    result_col = st.text_input("Result column name", "is_valid")
+    st.markdown("**Examples:** Account numbers: `^\\d{10}$`, Email: `^[\\w\\.-]+@[\\w\\.-]+\\.[a-zA-Z]{2,}$`")
+    if st.button("Add Validation"):
+        add_operation_to_pipeline({"op": "validate_pattern", "column": val_col, "pattern": pattern, "new_column": result_col})
 
 # Show current pipeline
 st.subheader("Current Pipeline")

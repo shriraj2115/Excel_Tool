@@ -1,0 +1,27 @@
+[
+  {
+    "op": "remove_blank_rows",
+    "columns": null,
+    "how": "all"
+  },
+  {
+    "op": "remove_duplicates",
+    "subset": null,
+    "keep": "first"
+  },
+  {
+    "op": "normalize_text",
+    "column": "Transaction_Type",
+    "mode": "uppercase"
+  },
+  {
+    "op": "convert_date",
+    "column": "Date",
+    "fmt_out": "%Y-%m-%d"
+  },
+  {
+    "op": "sort_data",
+    "by": ["Date", "Amount"],
+    "ascending": [true, false]
+  }
+]

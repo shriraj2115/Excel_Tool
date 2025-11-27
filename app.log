@@ -337,3 +337,7 @@ ValueError: Aggregation failed: cannot insert Equality Score, already exists
 2025-11-09 00:13:24,990 INFO Pipeline appended: {'op': 'convert_date', 'column': 'Unnamed: 1', 'fmt_out': '%m-%Y-%d'}
 2025-11-09 00:13:31,877 INFO Applying step 1: convert_date {'column': 'Unnamed: 1', 'fmt_out': '%m-%Y-%d'}
 2025-11-09 00:14:04,110 INFO Saved template: templates\Date.json
+2025-11-27 10:53:08,133 INFO Pipeline appended: {'op': 'remove_blank_rows', 'columns': ['Factory', 'Job Role', 'Equality Score', 'Equality class'], 'how': 'any'}
+2025-11-27 10:53:32,157 INFO Applying step 1: remove_blank_rows {'columns': ['Factory', 'Job Role', 'Equality Score', 'Equality class'], 'how': 'any'}
+2025-11-27 10:53:51,732 INFO Applying step 1: remove_blank_rows {'columns': ['Factory', 'Job Role', 'Equality Score', 'Equality class'], 'how': 'any'}
+2025-11-27 10:53:51,734 INFO Transformed sheet 'Sheet1' successfully.
